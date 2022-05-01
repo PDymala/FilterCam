@@ -1,5 +1,13 @@
 # FilterCAM
-Very simple app to filter out colors. Used pure OpenCV so that the camera does not optimize parameters on its own.
+Very simple app to filter out colors. Used pure OpenCV so that the camera does not optimize visual parameters on its own.
+
+
+<BR><BR>
+<img src="photo1[1].png" height="400" />
+
+<BR><BR>
+<img src="photo2[1].png" height="400" />
+
 
 ## Tech
 - Java/Android
