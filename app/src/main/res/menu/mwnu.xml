@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <item  android:id="@+id/none"
+        android:title="No filter"/>
+    <item  android:id="@+id/red"
+        android:title="Red filter"/>
+    <item  android:id="@+id/green"
+        android:title="Green filter"/>
+    <item  android:id="@+id/blue"
+        android:title="Blue filter"/>
+    <item
+        android:id="@+id/custom"
+        android:title="Custom filter" />
+
+
+</menu>

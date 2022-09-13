@@ -1,12 +1,16 @@
 package com.diplabs.filtercam2;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.hardware.camera2.CameraAccessException;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,21 +28,26 @@ import org.opencv.core.Scalar;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
-public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
+public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2, PopupMenu.OnMenuItemClickListener {
     private static final String TAG = "FilterCam";
-    private JavaCamera2View javaCameraView;
-//    CascadeClassifier faceDetector;
-
-    //    File caseFile;
-    static {
-        System.loadLibrary("opencv_java4");
-    }
-
+    private CustomCameraView javaCameraView;
     private static final int MY_CAMERA_REQUEST_CODE = 100;
     private int activeCamera =  CameraBridgeViewBase.CAMERA_ID_BACK;
     private BaseLoaderCallback baseLoaderCallback;
 
+    static {
+        System.loadLibrary("opencv_java4");
+    }
 
+
+    private int initialColor = 0xffffff;
+    private int filterColor = initialColor;
+    private double redPercent = 1.0;
+    private double greenPercent = 1.0;
+    private double bluePercent = 1.0;
+    private int filterColorType = 0;
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,56 +78,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             }
         };
 
-//        face detection
-//        baseLoaderCallback = new BaseLoaderCallback(this) {
-//            @Override
-//            public void onManagerConnected(int status) {
-//                switch (status) {
-//                    case LoaderCallbackInterface.SUCCESS: {
-//                        try{
-//                            InputStream is = getResources().openRawResource(R.raw.haarcascade_frontalface_default);
-//                            File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
-//                            caseFile = new File(cascadeDir, "haarcascade_frontalface_default.xml");
-//
-//                            FileOutputStream fos = new FileOutputStream(caseFile);
-//
-//                            byte[] buffer = new byte[4096];
-//                            int bytesRead;
-//
-//                            while ((bytesRead = is.read(buffer)) != -1) {
-//                                fos.write(buffer, 0, bytesRead);
-//                            }
-//                            is.close();
-//                            fos.close();
-//
-//                            faceDetector = new CascadeClassifier(caseFile.getAbsolutePath());
-//                            if (faceDetector.empty()) {
-//                                faceDetector = null;
-//                            } else {
-//                                cascadeDir.delete();
-//                            }
-//                            javaCameraView.enableView();
-//                        }catch (IOException e){
-//
-//                        }
-//
-//                        }
-//                        break;
-//
-//                        default:
-//                            super.onManagerConnected(status);
-//
-//                }
-//            }
-//
-//        };
-
-
-
-
-
         javaCameraView.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
-
             @Override
             public void onSwipeUp() {
                 super.onSwipeUp();
@@ -128,33 +88,6 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     }
 
 
-   private int initialColor = 0xffffff;
-    private int filterColor = initialColor;
-    private double redPercent = 1.0;
-    private double greenPercent = 1.0;
-    private double bluePercent = 1.0;
-
-
-    public void colorPicker(View view) {
-
-        AmbilWarnaDialog dialog = new AmbilWarnaDialog(this, filterColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
-            @Override
-            public void onOk(AmbilWarnaDialog dialog, int color) {
-                // color is the color selected by the user.
-                filterColor = color;
-                redPercent = Color.red(filterColor) / 255.0;
-                greenPercent = Color.green(filterColor) / 255.0;
-                bluePercent = Color.blue(filterColor) / 255.0;
-            }
-
-            @Override
-            public void onCancel(AmbilWarnaDialog dialog) {
-                // cancel was selected by the user
-            }
-
-        });
-        dialog.show();
-    }
 
 
     private void permisions() {
@@ -178,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         javaCameraView.setVisibility(CameraBridgeViewBase.VISIBLE);
         javaCameraView.setCvCameraViewListener(this);
 
-//        javaCameraView.enableFpsMeter();
 
     }
 
@@ -249,54 +181,94 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
 
 
+    public void colorPicker() {
+
+        AmbilWarnaDialog dialog = new AmbilWarnaDialog(this, filterColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                filterColor = color;
+                redPercent = Color.red(filterColor) / 255.0;
+                greenPercent = Color.green(filterColor) / 255.0;
+                bluePercent = Color.blue(filterColor) / 255.0;
+            }
+
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+
+            }
+
+        });
+
+        dialog.show();
+    }
+
+
+    public void showMenuColorFilter(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.setOnMenuItemClickListener(this);
+        popupMenu.inflate(R.menu.mwnu);
+        popupMenu.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.none:
+                redPercent = 1.0;
+                greenPercent = 1.0;
+                bluePercent = 1.0;
+                return true;
+            case R.id.red:
+                redPercent = 1.0;
+                greenPercent = 0.0;
+                bluePercent = 0.0;
+                return true;
+            case R.id.green:
+                redPercent = 0.0;
+                greenPercent = 1.0;
+                bluePercent = 0.0;
+                return true;
+            case R.id.blue:
+                redPercent = 0.0;
+                greenPercent = 0.0;
+                bluePercent = 1.0;
+                return true;
+            case R.id.custom:
+                colorPicker();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         mRgba = inputFrame.rgba();
-
-
-
         Core.multiply(mRgba,new Scalar(redPercent,greenPercent,bluePercent),mRgba);
-
-
-
-
-//detect Face
-//        MatOfRect facedetections = new MatOfRect();
-//        faceDetector.detectMultiScale(mRgba,facedetections);
-//
-//        for(Rect react: facedetections.toArray()){
-//            Imgproc.rectangle(mRgba, new Point(react.x,react.y),
-//                    new Point(react.x + react.width, react.y + react.height),
-//                    new Scalar(255,0,0));
-//        }
-
-
-
-
-
-
-
-
-
-
-
         return mRgba;
 
     }
 
 
-
     private void swapCamera() {
-
         if (activeCamera ==  CameraBridgeViewBase.CAMERA_ID_BACK){
             activeCamera =  CameraBridgeViewBase.CAMERA_ID_FRONT;;
         } else{
             activeCamera = CameraBridgeViewBase.CAMERA_ID_BACK;
         }
-//        activeCamera = activeCamera^1; //bitwise not operation to flip 1 to 0 and vice versa
         javaCameraView.disableView();
         javaCameraView.setCameraIndex(activeCamera);
         javaCameraView.enableView();
     }
 
+    public void flashOnOff(View view) throws CameraAccessException {
+
+        javaCameraView.toggleFlashMode();
+    }
+
+    public void zoomUp(View view) throws CameraAccessException {
+        javaCameraView.zoomUpCamera();
+    }
 }

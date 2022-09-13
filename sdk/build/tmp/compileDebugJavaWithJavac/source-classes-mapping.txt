@@ -14,13 +14,8 @@ org/opencv/dnn/ClassificationModel.java
  org.opencv.dnn.ClassificationModel
 org/opencv/photo/AlignMTB.java
  org.opencv.photo.AlignMTB
-org/opencv/android/JavaCamera2View.java
- org.opencv.android.JavaCamera2View
- org.opencv.android.JavaCamera2View$1
- org.opencv.android.JavaCamera2View$2
- org.opencv.android.JavaCamera2View$3
- org.opencv.android.JavaCamera2View$JavaCamera2Frame
- org.opencv.android.JavaCamera2View$JavaCameraSizeAccessor
+org/opencv/ml/SVM.java
+ org.opencv.ml.SVM
 org/opencv/core/MatOfByte.java
  org.opencv.core.MatOfByte
 org/opencv/features2d/MSER.java
@@ -318,5 +313,10 @@ org/opencv/ml/StatModel.java
  org.opencv.ml.StatModel
 org/opencv/utils/Converters.java
  org.opencv.utils.Converters
-org/opencv/ml/SVM.java
- org.opencv.ml.SVM
+org/opencv/android/JavaCamera2View.java
+ org.opencv.android.JavaCamera2View
+ org.opencv.android.JavaCamera2View$1
+ org.opencv.android.JavaCamera2View$2
+ org.opencv.android.JavaCamera2View$3
+ org.opencv.android.JavaCamera2View$JavaCamera2Frame
+ org.opencv.android.JavaCamera2View$JavaCameraSizeAccessor

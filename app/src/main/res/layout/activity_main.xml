@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
 
-    <org.opencv.android.JavaCamera2View
+    <com.diplabs.filtercam2.CustomCameraView
         android:id="@+id/color_blob_detection_activity_surface_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -22,14 +22,47 @@
         android:background="#00FFFEFE"
         android:backgroundTint="#FFFFFF"
         android:foregroundTint="#FFFFFF"
-        android:onClick="colorPicker"
+        android:onClick="showMenuColorFilter"
         android:scaleType="fitCenter"
-        android:tint="#FFFFFF"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_baseline_color_lens_24" />
+        app:srcCompat="@drawable/ic_baseline_color_lens_24"
+        app:tint="#FFFFFF" />
 
+    <ImageButton
+        android:id="@+id/imageButtonFlash"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:background="#00FFFEFE"
+        android:backgroundTint="#FFFFFF"
+        android:foregroundTint="#FFFFFF"
+        android:onClick="flashOnOff"
+        android:scaleType="fitCenter"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButtonColorPicker"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonColorPicker"
+        app:layout_constraintTop_toTopOf="@+id/imageButtonColorPicker"
+        app:srcCompat="@drawable/ic_baseline_flash_on_24"
+        app:tint="#FFFFFF" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="#00FFFEFE"
+        android:backgroundTint="#FFFFFF"
+        android:foregroundTint="#FFFFFF"
+        android:onClick="zoomUp"
+        android:scaleType="fitCenter"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_zoom_in_24"
+        app:tint="#FFFFFF" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
