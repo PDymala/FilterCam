@@ -242,6 +242,24 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         }
     }
 
+    public void redButtonClick(View view){
+        redPercent = 1.0;
+        greenPercent = 0.0;
+        bluePercent = 0.0;
+    }
+
+    public void greenButtonClick(View view){
+        redPercent = 0.0;
+        greenPercent = 1.0;
+        bluePercent = 0.0;
+    }
+    public void blueButtonClick(View view){
+        redPercent = 0.0;
+        greenPercent = 0.0;
+        bluePercent = 1.0;
+    }
+
+
 
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {

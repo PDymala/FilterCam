@@ -14,55 +14,85 @@
         android:layout_height="match_parent" />
 
     <ImageButton
-        android:id="@+id/imageButtonColorPicker"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="#00FFFEFE"
-        android:backgroundTint="#FFFFFF"
-        android:foregroundTint="#FFFFFF"
-        android:onClick="showMenuColorFilter"
-        android:scaleType="fitCenter"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_baseline_color_lens_24"
-        app:tint="#FFFFFF" />
-
-    <ImageButton
         android:id="@+id/imageButtonFlash"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:background="#00FFFEFE"
-        android:backgroundTint="#FFFFFF"
-        android:foregroundTint="#FFFFFF"
-        android:onClick="flashOnOff"
-        android:scaleType="fitCenter"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButtonColorPicker"
-        app:layout_constraintStart_toEndOf="@+id/imageButtonColorPicker"
-        app:layout_constraintTop_toTopOf="@+id/imageButtonColorPicker"
-        app:srcCompat="@drawable/ic_baseline_flash_on_24"
-        app:tint="#FFFFFF" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="#00FFFEFE"
         android:backgroundTint="#FFFFFF"
+        android:contentDescription="Flashlight button"
+        android:foregroundTint="#FFFFFF"
+        android:onClick="flashOnOff"
+        android:scaleType="fitXY"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/imageButtonZoom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_flash_on_24"
+        app:tint="#FFFFFF" />
+
+    <ImageButton
+        android:id="@+id/imageButtonZoom"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="#00FFFEFE"
+        android:backgroundTint="#FFFFFF"
+        android:contentDescription="Zoom button"
         android:foregroundTint="#FFFFFF"
         android:onClick="zoomUp"
-        android:scaleType="fitCenter"
+        android:scaleType="fitXY"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_zoom_in_24"
         app:tint="#FFFFFF" />
+
+    <ImageButton
+        android:id="@+id/imageButtonRedFilter"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#00FFFFFF"
+        android:contentDescription="Red filter button"
+        android:onClick="redButtonClick"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_circle_24"
+        app:tint="#FF0000" />
+
+    <ImageButton
+        android:id="@+id/imageButtonGreenFilter"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#00FFFFFF"
+        android:contentDescription="Green filter button"
+        android:onClick="greenButtonClick"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonRedFilter"
+        app:srcCompat="@drawable/baseline_circle_24"
+        app:tint="#00FF00" />
+
+    <ImageButton
+        android:id="@+id/imageButtonBlueFilter"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#00FFFFFF"
+        android:contentDescription="Blue Filter button"
+        android:onClick="blueButtonClick"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonGreenFilter"
+        app:srcCompat="@drawable/baseline_circle_24"
+        app:tint="#0000FF" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
