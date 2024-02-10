@@ -2,9 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/back"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:foregroundTint="#FFFFFF"
+    android:padding="2dp"
     tools:context=".MainActivity">
 
 
@@ -12,6 +14,24 @@
         android:id="@+id/color_blob_detection_activity_surface_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <ImageButton
+        android:id="@+id/imageButtonHide"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="#00FFFEFE"
+        android:backgroundTint="#FFFFFF"
+        android:contentDescription="Toggle buttons"
+        android:foregroundTint="#FFFFFF"
+        android:onClick="toggleHide"
+        android:scaleType="fitXY"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/baseline_hide_source_24"
+        app:tint="#FFFFFF" />
 
     <ImageButton
         android:id="@+id/imageButtonFlash"
@@ -44,7 +64,7 @@
         android:onClick="zoomUp"
         android:scaleType="fitXY"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageButtonHide"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_zoom_in_24"
         app:tint="#FFFFFF" />
@@ -93,6 +113,21 @@
         app:layout_constraintTop_toBottomOf="@+id/imageButtonGreenFilter"
         app:srcCompat="@drawable/baseline_circle_24"
         app:tint="#0000FF" />
+
+    <ImageButton
+        android:id="@+id/imageButtonNoFilter"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#00FFFFFF"
+        android:contentDescription="Blue Filter button"
+        android:onClick="noButtonClick"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonBlueFilter"
+        app:srcCompat="@drawable/baseline_circle_24"
+        app:tint="#FFFFFF" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

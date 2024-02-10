@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     private double bluePercent = 1.0;
     private int filterColorType = 0;
 
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                 swapCamera();
             }
         });
+
     }
 
 
@@ -259,8 +261,18 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         bluePercent = 1.0;
     }
 
+    public void noButtonClick(View view){
+        redPercent = 1.0;
+        greenPercent = 1.0;
+        bluePercent = 1.0;
+    }
+
+    boolean hidden = false;
+
+    public void toggleHide(View view){
 
 
+    }
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         mRgba = inputFrame.rgba();
