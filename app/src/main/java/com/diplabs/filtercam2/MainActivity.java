@@ -3,14 +3,12 @@ package com.diplabs.filtercam2;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.hardware.camera2.CameraAccessException;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.PopupMenu;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,9 +24,7 @@ import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 
-import yuku.ambilwarna.AmbilWarnaDialog;
-
-public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2, PopupMenu.OnMenuItemClickListener {
+public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2{
     private static final String TAG = "FilterCam";
     private CustomCameraView javaCameraView;
     private static final int MY_CAMERA_REQUEST_CODE = 100;
@@ -39,13 +35,20 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         System.loadLibrary("opencv_java4");
     }
 
-
-    private int initialColor = 0xffffff;
-    private int filterColor = initialColor;
     private double redPercent = 1.0;
     private double greenPercent = 1.0;
     private double bluePercent = 1.0;
-    private int filterColorType = 0;
+
+
+    ImageButton imageButtonHide;
+    ImageButton imageButtonFlash;
+    ImageButton imageButtonZoom;
+    ImageButton imageButtonRedFilter;
+    ImageButton imageButtonGreenFilter;
+    ImageButton imageButtonBlueFilter;
+    ImageButton imageButtonNoFilter;
+    boolean hidden = false;
+
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         javaCameraView = findViewById(R.id.color_blob_detection_activity_surface_view);
 
         permisions();
+        initUI();
 
 
         baseLoaderCallback = new BaseLoaderCallback(this) {
@@ -85,11 +89,23 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                 super.onSwipeUp();
                 swapCamera();
             }
+
+
         });
+
 
     }
 
+    private void initUI() {
 
+         imageButtonHide = findViewById(R.id.imageButtonHide);
+         imageButtonFlash = findViewById(R.id.imageButtonFlash);
+         imageButtonZoom = findViewById(R.id.imageButtonZoom);
+         imageButtonRedFilter = findViewById(R.id.imageButtonRedFilter);
+         imageButtonGreenFilter = findViewById(R.id.imageButtonGreenFilter);
+         imageButtonBlueFilter = findViewById(R.id.imageButtonBlueFilter);
+         imageButtonNoFilter = findViewById(R.id.imageButtonNoFilter);
+    }
 
 
     private void permisions() {
@@ -183,67 +199,6 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
 
 
-    public void colorPicker() {
-
-        AmbilWarnaDialog dialog = new AmbilWarnaDialog(this, filterColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
-            @Override
-            public void onOk(AmbilWarnaDialog dialog, int color) {
-                filterColor = color;
-                redPercent = Color.red(filterColor) / 255.0;
-                greenPercent = Color.green(filterColor) / 255.0;
-                bluePercent = Color.blue(filterColor) / 255.0;
-            }
-
-            @Override
-            public void onCancel(AmbilWarnaDialog dialog) {
-
-            }
-
-        });
-
-        dialog.show();
-    }
-
-
-    public void showMenuColorFilter(View view) {
-        PopupMenu popupMenu = new PopupMenu(this, view);
-        popupMenu.setOnMenuItemClickListener(this);
-        popupMenu.inflate(R.menu.mwnu);
-        popupMenu.show();
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.none:
-                redPercent = 1.0;
-                greenPercent = 1.0;
-                bluePercent = 1.0;
-                return true;
-            case R.id.red:
-                redPercent = 1.0;
-                greenPercent = 0.0;
-                bluePercent = 0.0;
-                return true;
-            case R.id.green:
-                redPercent = 0.0;
-                greenPercent = 1.0;
-                bluePercent = 0.0;
-                return true;
-            case R.id.blue:
-                redPercent = 0.0;
-                greenPercent = 0.0;
-                bluePercent = 1.0;
-                return true;
-            case R.id.custom:
-                colorPicker();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     public void redButtonClick(View view){
         redPercent = 1.0;
         greenPercent = 0.0;
@@ -267,9 +222,29 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         bluePercent = 1.0;
     }
 
-    boolean hidden = false;
 
     public void toggleHide(View view){
+        if (!hidden){
+
+            imageButtonFlash.setVisibility(View.INVISIBLE);
+            imageButtonZoom.setVisibility(View.INVISIBLE);
+            imageButtonRedFilter.setVisibility(View.INVISIBLE);
+            imageButtonGreenFilter.setVisibility(View.INVISIBLE);
+            imageButtonBlueFilter.setVisibility(View.INVISIBLE);
+            imageButtonNoFilter.setVisibility(View.INVISIBLE);
+            hidden = true;
+
+        } else{
+
+            imageButtonFlash.setVisibility(View.VISIBLE);
+            imageButtonZoom.setVisibility(View.VISIBLE);
+            imageButtonRedFilter.setVisibility(View.VISIBLE);
+            imageButtonGreenFilter.setVisibility(View.VISIBLE);
+            imageButtonBlueFilter.setVisibility(View.VISIBLE);
+            imageButtonNoFilter.setVisibility(View.VISIBLE);
+            hidden = false;
+        }
+
 
 
     }

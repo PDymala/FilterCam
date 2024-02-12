@@ -31,7 +31,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/baseline_hide_source_24"
-        app:tint="#FFFFFF" />
+        app:tint="#99FFFFFF" />
 
     <ImageButton
         android:id="@+id/imageButtonFlash"
@@ -49,7 +49,7 @@
         app:layout_constraintBottom_toTopOf="@+id/imageButtonZoom"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_flash_on_24"
-        app:tint="#FFFFFF" />
+        app:tint="#99FFFFFF" />
 
     <ImageButton
         android:id="@+id/imageButtonZoom"
@@ -67,7 +67,7 @@
         app:layout_constraintBottom_toTopOf="@+id/imageButtonHide"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_zoom_in_24"
-        app:tint="#FFFFFF" />
+        app:tint="#99FFFFFF" />
 
     <ImageButton
         android:id="@+id/imageButtonRedFilter"
@@ -82,7 +82,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_circle_24"
-        app:tint="#FF0000" />
+        app:tint="#99FF0000" />
 
     <ImageButton
         android:id="@+id/imageButtonGreenFilter"
@@ -97,7 +97,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButtonRedFilter"
         app:srcCompat="@drawable/baseline_circle_24"
-        app:tint="#00FF00" />
+        app:tint="#9900FF00" />
 
     <ImageButton
         android:id="@+id/imageButtonBlueFilter"
@@ -112,7 +112,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButtonGreenFilter"
         app:srcCompat="@drawable/baseline_circle_24"
-        app:tint="#0000FF" />
+        app:tint="#990000FF" />
 
     <ImageButton
         android:id="@+id/imageButtonNoFilter"
@@ -127,7 +127,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButtonBlueFilter"
         app:srcCompat="@drawable/baseline_circle_24"
-        app:tint="#FFFFFF" />
+        app:tint="#99FFFFFF" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
