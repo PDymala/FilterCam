@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     private double greenPercent = 1.0;
     private double bluePercent = 1.0;
 
+    private boolean autoFilter = false;
+
 
     ImageButton imageButtonHide;
     ImageButton imageButtonFlash;
@@ -47,6 +50,10 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     ImageButton imageButtonGreenFilter;
     ImageButton imageButtonBlueFilter;
     ImageButton imageButtonNoFilter;
+
+    ImageButton imageButtonFilterAim;
+
+    ImageView imageViewAutoFilterAim;
     boolean hidden = false;
 
 
@@ -105,6 +112,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
          imageButtonGreenFilter = findViewById(R.id.imageButtonGreenFilter);
          imageButtonBlueFilter = findViewById(R.id.imageButtonBlueFilter);
          imageButtonNoFilter = findViewById(R.id.imageButtonNoFilter);
+        imageButtonFilterAim = findViewById(R.id.imageButtonFilterAim);
+        imageViewAutoFilterAim = findViewById(R.id.imageViewAutoFilterAim);
+
     }
 
 
@@ -198,6 +208,14 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     Mat mRgba;
 
 
+    public void toggleAutoFilter(View view) {
+        if (!autoFilter) {
+            imageViewAutoFilterAim.setVisibility(View.VISIBLE);
+        } else{
+            imageViewAutoFilterAim.setVisibility(View.INVISIBLE);
+        }
+        autoFilter = !autoFilter;
+    }
 
     public void redButtonClick(View view){
         redPercent = 1.0;
@@ -232,6 +250,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             imageButtonGreenFilter.setVisibility(View.INVISIBLE);
             imageButtonBlueFilter.setVisibility(View.INVISIBLE);
             imageButtonNoFilter.setVisibility(View.INVISIBLE);
+//            imageViewAutoFilterAim.setVisibility(View.INVISIBLE);
+            imageButtonFilterAim.setVisibility(View.INVISIBLE);
+
             hidden = true;
 
         } else{
@@ -242,6 +263,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             imageButtonGreenFilter.setVisibility(View.VISIBLE);
             imageButtonBlueFilter.setVisibility(View.VISIBLE);
             imageButtonNoFilter.setVisibility(View.VISIBLE);
+//            imageViewAutoFilterAim.setVisibility(View.VISIBLE);
+            imageButtonFilterAim.setVisibility(View.VISIBLE);
             hidden = false;
         }
 
@@ -251,6 +274,26 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         mRgba = inputFrame.rgba();
+
+        if (autoFilter) {
+
+            // Get image dimensions
+            int rows = mRgba.rows();
+            int cols = mRgba.cols();
+
+            // Calculate the center pixel coordinates
+            int centerX = cols / 2;
+            int centerY = rows / 2;
+
+            // Access the center pixel
+            double[] centerPixel = mRgba.get(centerY, centerX);
+
+            // Extract RGB components
+            redPercent = centerPixel[0]/255.0;
+            greenPercent = (int) centerPixel[1]/255.0;
+            bluePercent = (int) centerPixel[2]/255.0;
+        }
+
         Core.multiply(mRgba,new Scalar(redPercent,greenPercent,bluePercent),mRgba);
         return mRgba;
 
