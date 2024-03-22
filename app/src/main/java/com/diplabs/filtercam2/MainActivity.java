@@ -217,24 +217,29 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         autoFilter = !autoFilter;
     }
 
+
     public void redButtonClick(View view){
+        if (autoFilter) toggleAutoFilter(view);
         redPercent = 1.0;
         greenPercent = 0.0;
         bluePercent = 0.0;
     }
 
     public void greenButtonClick(View view){
+        if (autoFilter) toggleAutoFilter(view);
         redPercent = 0.0;
         greenPercent = 1.0;
         bluePercent = 0.0;
     }
     public void blueButtonClick(View view){
+        if (autoFilter) toggleAutoFilter(view);
         redPercent = 0.0;
         greenPercent = 0.0;
         bluePercent = 1.0;
     }
 
     public void noButtonClick(View view){
+        if (autoFilter) toggleAutoFilter(view);
         redPercent = 1.0;
         greenPercent = 1.0;
         bluePercent = 1.0;
