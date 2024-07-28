@@ -16,7 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FilterCam2">
         <activity android:name=".MainActivity"
-            android:screenOrientation="landscape"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -10,11 +10,23 @@
     tools:context=".MainActivity">
 
 
-    <com.diplabs.filtercam2.CustomCameraView
-        android:id="@+id/color_blob_detection_activity_surface_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <com.diplabs.filtercam2.CustomCameraView
+            android:id="@+id/cameraView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="0dp" />
+
+    </RelativeLayout>
     <ImageButton
         android:id="@+id/imageButtonHide"
         android:layout_width="50dp"
@@ -150,13 +162,13 @@
         android:layout_height="wrap_content"
         android:contentDescription="Automatic filter button"
         android:foregroundTint="#FFFFFF"
-        android:tint="#B0FFFFFF"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/color_blob_detection_activity_surface_view"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_add_circle_outline_24" />
+        app:srcCompat="@drawable/baseline_add_circle_outline_24"
+        app:tint="#B0FFFFFF" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

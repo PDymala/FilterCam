@@ -17,10 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import org.opencv.android.BaseLoaderCallback;
+
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.JavaCamera2View;
-import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     private CustomCameraView javaCameraView;
     private static final int MY_CAMERA_REQUEST_CODE = 100;
     private int activeCamera =  CameraBridgeViewBase.CAMERA_ID_BACK;
-    private BaseLoaderCallback baseLoaderCallback;
 
     static {
         System.loadLibrary("opencv_java4");
@@ -65,30 +63,12 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         setContentView(R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        javaCameraView = findViewById(R.id.color_blob_detection_activity_surface_view);
+        javaCameraView = findViewById(R.id.cameraView);
 
         permisions();
         initUI();
 
 
-        baseLoaderCallback = new BaseLoaderCallback(this) {
-            @Override
-            public void onManagerConnected(int status) {
-                super.onManagerConnected(status);
-
-                switch (status) {
-
-                    case BaseLoaderCallback.SUCCESS:
-                        javaCameraView.enableView();
-                        break;
-                    default:
-                        super.onManagerConnected(status);
-                        break;
-                }
-
-
-            }
-        };
 
         javaCameraView.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             @Override
@@ -138,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         javaCameraView.setCameraIndex(activeCamera);
         javaCameraView.setVisibility(CameraBridgeViewBase.VISIBLE);
         javaCameraView.setCvCameraViewListener(this);
+        javaCameraView.enableView();
 
 
     }
@@ -148,13 +129,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     protected void onResume() {
         super.onResume();
 
-        if (OpenCVLoader.initDebug()) {
-            Log.d(TAG, "OpenCV is Configured or Connected successfully.");
-                baseLoaderCallback.onManagerConnected(BaseLoaderCallback.SUCCESS);
 
-        } else {
-            Log.d(TAG, "OpenCV not Working or Loaded.");
-            OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION, this, baseLoaderCallback);
+        if (javaCameraView != null) {
+            javaCameraView.enableView();
         }
     }
 
